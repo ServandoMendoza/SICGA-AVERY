@@ -1,0 +1,38 @@
+<?php
+//$this->HeadScript()->appendFile($basePath . '/js/Scrap/edit.js', 'text/javascript');
+
+$title = 'Editar Máquina';
+$this->headTitle($title);
+?>
+
+<section class="work-area">
+    <h1><?= $this->escapeHtml($title); ?></h1>
+
+    <?php
+        $form = $this->form;
+
+        $form->setAttribute('action', $this->url(
+            'Machine',
+            array(
+                'action' => 'edit',
+                'id' => $machine->id)
+        ));
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+        echo $this->formHidden($form->get('id'));
+
+    ?>
+
+    <div class="col-md-6">
+        <label for="name">Nombre:</label>
+        <?= $this->formRow($form->get('name')); ?><br/>
+
+        <label for="model">Modelo:</label>
+        <?= $this->formRow($form->get('model')); ?><br/>
+
+        <?= $this->formRow($form->get('saveBtn')); ?>
+    </div>
+
+    <?= $this->form()->closeTag(); ?>
+</section>

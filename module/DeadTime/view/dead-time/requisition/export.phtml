@@ -1,0 +1,47 @@
+<?php
+    $this->HeadScript()->appendFile($basePath . '/js/DeadTime/Export/export.js', 'text/javascript');
+    $title = 'Exportar Requisición';
+    $this->headTitle($title);
+?>
+
+<section class="work-area">
+    <div class="container">
+        <h1>Exportar Requisición</h1>
+
+        <p>Seleccione el rango de fecha:</p>
+
+        <?php
+        $form = $this->form;
+        $form->setAttribute('action', $this->url('Requisition', array('action' => 'exportPending')));
+        $form->setAttribute('id', 'requisition-form');
+        $form->setAttribute('target', '_blank');
+        $form->setAttribute('class', 'form-horizontal');
+        $form->setAttribute('role', 'form');
+
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+        ?>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label for="medida">Fecha Inical:</label><br/>
+                <?= $this->formRow($form->get('start_date')); ?><br/><br/>
+            </div>
+            <div class="col-md-4">
+                <label for="medida">Fecha Final:</label><br/>
+                <?= $this->formRow($form->get('end_date')); ?><br/><br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <?= $this->formRow($form->get('exportBtn')); ?>
+            </div>
+        </div>
+
+        <?= $this->form()->closeTag(); ?>
+
+
+
+    </div>
+</section>

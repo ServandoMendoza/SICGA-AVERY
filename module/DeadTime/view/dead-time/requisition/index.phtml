@@ -1,0 +1,143 @@
+<script>
+    var hasOpenOrder = <?= ($requisition->id_open_order)? 1: 0 ?>;
+    var hasTech = <?= ($requisition->id_tech)? 1: 0 ?>;
+    var hasAssignDate = <?= ($requisition->assign_time)? 1: 0 ?>;
+    var techCount = <?= ($techsCount)? $techsCount: 0 ?>;
+</script>
+
+
+<?php
+$this->HeadScript()->appendFile($basePath . '/js/DeadTime/Requisition/add.js', 'text/javascript');
+$title = 'Add Requisition';
+$this->headTitle($title);
+
+?>
+
+<section class="work-area">
+    <div class="container">
+        <h1>Requisición</h1>
+
+        <div id="req-msg" class="alert alert-danger" style="display:none;">
+            Esta requisición ya ha sido liberada.
+        </div>
+
+        <?php
+
+        if ($this->flashMessenger()->hasMessages()) {
+
+            echo '<div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>';
+
+            $messages = $this->flashMessenger()->getMessages();
+            foreach($messages as $message) {
+                echo $message;
+            }
+
+            echo '</div>';
+        }
+        ?>
+
+    <?php
+
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('Requisition', array('action' => 'modify')));
+    $form->setAttribute('id', 'requisition-form');
+    $form->setAttribute('class', 'form-horizontal');
+    $form->setAttribute('role', 'form');
+
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formHidden($form->get('modify'));
+    echo $this->formHidden($form->get('free'));
+    echo $this->formHidden($form->get('id_dead_time'));
+    echo $this->formHidden($form->get('id_open_order'));
+    echo $this->formHidden($form->get('generated_work'));
+    ?>
+        <div class="row">
+            <div class="col-md-4">
+
+                <label for="skuprefix">Número de requisición:</label>
+                <?= $this->formRow($form->get('number')); ?><br/>
+
+                <label for="medida">Fecha y hora:</label>
+                <?= $this->formRow($form->get('create_date')); ?><br/>
+
+                <label for="medida">Area:</label>
+                <?= $this->formRow($form->get('id_area')); ?><br/>
+
+                <label for="medida">Máquina:</label>
+                <?= $this->formRow($form->get('id_machine')); ?><br/>
+
+                <label for="medida">Condición de la máquina:</label>
+                <?= $this->formRow($form->get('machine_status')); ?><br/>
+
+                <label for="medida">Problema:</label>
+                <?= $this->formRow($form->get('problem')); ?><br/>
+
+                <label for="medida">Responsable:</label>
+                <?= $this->formRow($form->get('responsible')); ?><br/>
+
+                <label for="medida">Turno:</label>
+                <?= $this->formRow($form->get('id_shift')); ?><br/>
+
+                <label for="medida">Técnico:</label>
+                <?= $this->formRow($form->get('id_tech')); ?>
+
+                <?php if(!$isGerenteUser): ?>
+                    <?= $this->formRow($form->get('assignTechBtn')); ?><br/>
+                <?php endif; ?>
+
+                <label for="medida">Hora de asignación:</label>
+                <?= $this->formRow($form->get('assign_time')); ?>
+            </div>
+            <div class="col-md-4">
+                <label for="skuprefix">Causa:</label>
+                <?= $this->formRow($form->get('cause')); ?><br/>
+
+                <label for="skuprefix">Acción Correctiva:</label>
+                <?= $this->formRow($form->get('action')); ?><br/>
+
+                <label for="skuprefix">Comentarios:</label>
+                <?= $this->formRow($form->get('comments')); ?><br/>
+
+                <label for="skuprefix">Hora termino:</label>
+                <?= $this->formRow($form->get('fix_time')); ?><br/><br/>
+
+                <label for="skuprefix">Tecnico A (mins):</label>
+                <?= $this->formRow($form->get('tech1')); ?><br/>
+
+                <label for="skuprefix">Tecnico B (mins):</label>
+                <?= $this->formRow($form->get('tech2')); ?><br/>
+
+                <label for="skuprefix">Tecnico C (mins):</label>
+                <?= $this->formRow($form->get('tech3')); ?><br/>
+
+                <?php if(!$isGerenteUser): ?>
+
+                    <?= $this->formRow($form->get('freeReqBtn')); ?>
+
+                    <a href="<?= $this->url('home')."Work/add"?>" class="btn btn-primary btn-lg btn-add" style="width:100%;">
+                        Otras Labores
+                    </a><br/>
+
+                    <a id="foaBtn" href="<?= $this->url('home')."OpenOrder/".$req_num?>" class="btn btn-warning btn-lg btn-add" style="width:100%;">
+                        Formato Orden Abierta
+                    </a><br/>
+
+                <?php endif; ?>
+
+                <a href="<?= $this->url('home')."Requisition/techs"?>" class="btn btn-warning btn-lg btn-add" style="width:100%;">
+                    Técnicos
+                </a><br/>
+
+
+
+            </div>
+
+            <?= $this->form()->closeTag(); ?>
+
+    </div>
+</section>

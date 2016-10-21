@@ -1,0 +1,28 @@
+<section class="work-area">
+    <?php
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('Areas', array(
+        'action' => 'edit',
+        'id' => $area->id)));
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formHidden($form->get('id'));
+
+    ?>
+
+    <p>Editar Area</p>
+
+    <div class="col-md-3">
+        <label for="code">Nombre:</label>
+        <?= $this->formRow($form->get('name')); ?>
+    </div>
+
+    <div class="col-md-3">
+        <br>
+        <?= $this->formRow($form->get('saveBtn')); ?>
+    </div>
+
+
+    <?= $this->form()->closeTag(); ?>
+</section>

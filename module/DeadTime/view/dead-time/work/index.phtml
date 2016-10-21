@@ -1,0 +1,86 @@
+<?php
+$this->HeadScript()->appendFile($basePath . '/css/datatables/jquery.dataTables.css', 'text/css');
+$this->HeadScript()->appendFile($basePath . '/css/datatables/demo.css', 'text/css');
+
+$this->HeadScript()->appendFile($basePath . '/js/Datatables/jquery.dataTables.js', 'text/javascript');
+$this->HeadScript()->appendFile($basePath . '/js/DeadTime/Work/index.js', 'text/javascript');
+
+$title = 'Listado de Trabajos';
+$this->headTitle($title);
+?>
+
+<script type="text/javascript">
+    var auxObj = {
+        edit_url : "<?= $this->url('home')."Work/edit/" ?>"
+    };
+</script>
+
+<section class="work-area">
+    <div class="container">
+        <h1>Trabajos</h1>
+
+        <a href="<?= $this->url('home')."Work/add"?>" class="btn btn-warning btn-lg btn-add pull-right">
+            <span class="glyphicon glyphicon-plus"></span> Agregar
+        </a><br/>
+
+        <table id="example" class="table table-hover">
+            <thead>
+            <tr>
+                <th>Number</th>
+                <th>Tipo</th>
+                <th>Tiempo</th>
+                <th>Maquina</th>
+                <th>Turno</th>
+                <th>Técnico</th>
+                <th>Terminado</th>
+                <th>Fecha Creacion</th>
+            </tr>
+            </thead>
+
+            <tfoot>
+            <tr>
+                <th>Number</th>
+                <th>Tipo</th>
+                <th>Tiempo</th>
+                <th>Maquina</th>
+                <th>Turno</th>
+                <th>Técnico</th>
+                <th>Terminado</th>
+                <th>Fecha Creacion</th>
+            </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').dataTable( {
+            "processing": true,
+            "serverSide": true,
+            "order": [ 0, 'desc' ],
+            "ajax": {
+                "url": "Work/jsonList",
+                "dataType": "jsonp"
+            },
+            "columnDefs": [
+                {
+                    "render": function ( data, type, row ) {
+                        return "<a href=\"javascript:editar('"+data+"')\">"+data+"</a>";
+                    },
+                    "targets": 0
+                },
+                {
+                    "render": function ( data, type, row ) {
+                        if(data < 1)
+                            return "<span style='color:red'>No</span>";
+                        else
+                            return "<span style='color:green'>Si</span>";
+                    },
+                    "targets": 6
+                },
+            ]
+        } );
+    } );
+</script>

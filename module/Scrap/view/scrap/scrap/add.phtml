@@ -1,0 +1,60 @@
+<?php
+    $this->HeadScript()->appendFile($basePath . '/js/Scrap/add.js', 'text/javascript');
+    $title = 'Tiempo Muerto';
+    $this->headTitle($title);
+?>
+
+<?php
+    $title = 'Añadir Scrap';
+    $this->headTitle($title);
+
+?>
+
+<section class="work-area">
+    <div class="row">
+        <div class="container">
+            <h1><?= $this->escapeHtml($title); ?></h1>
+
+        <?php
+
+        if ($this->flashMessenger()->hasMessages()) {
+
+            echo '<div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>';
+
+            $messages = $this->flashMessenger()->getMessages();
+            foreach($messages as $message) {
+                echo $message;
+            }
+
+            echo '</div>';
+        }
+            $form = $this->form;
+            $form->setAttribute('action', $this->url('Scrap', array('action' => 'add')));
+            $form->prepare();
+
+
+            echo $this->form()->openTag($form);
+            echo $this->formHidden($form->get('id'));
+            echo $this->formHidden($form->get('production_model_id'));
+        ?>
+
+        <div class="col-md-6">
+            <label for="cmbCodigo">Código:</label>
+            <?= $this->formRow($form->get('scrap_code_id')); ?><br>
+            <p> <strong>Descripción del código</strong>: <span id="scrap_description"></span></p><br/>
+        
+            <label for="cantidad">Cantidad:</label>
+            <?= $this->formRow($form->get('quantity')); ?><br/>
+       
+            <?= $this->formRow($form->get('saveBtn')); ?>
+        </div>
+
+
+        <?= $this->form()->closeTag(); ?>
+
+        </div>
+    </div>
+</section>

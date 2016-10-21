@@ -1,0 +1,130 @@
+<?php
+    $topCount = ($shift_id == 1)? 9 : 8;
+    $topMinutes = 60;
+?>
+
+<script type="text/javascript">
+    var addPostUrl =  "<?= $this->url('home')."ProductionModel" ?>"
+    var topCount = <?= $topCount ?>;
+    var noProgramObj = {
+        id : <?= ($no_program_dm->id)? $no_program_dm->id : 0 ?>,
+        id_machine : <?= ($no_program_dm->id_machine)? $no_program_dm->id_machine : 0 ?>,
+        is_active : <?= ($no_program_dm->is_active)? 0 : 1 ?>
+    };
+</script>
+
+<?php
+	$this->HeadScript()->appendFile($basePath . '/js/ProductionModel/add.js', 'text/javascript');
+	$title = 'Agregar Modelo';
+	$this->headTitle($title);
+?>
+
+<section class="work-area">
+    <div class="container">
+
+    <?php if(!empty($no_program_dm->id)): ?>
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+
+            La Máquina se encuentra SIN PROGRAMA.
+
+        </div>
+    <?php endif; ?>
+
+    <?php
+
+        $form = $this->form;
+        $form->setAttribute('action', $this->url('ProductionModel', array('action' => 'add')));
+        $form->setAttribute('id', 'newAlbumForm');
+    	$form->setAttribute('class', 'form-horizontal');
+        $form->setAttribute('role', 'form');
+
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+        echo $this->formHidden($form->get('id'));
+        echo $this->formHidden($form->get('start_hour'));
+        echo $this->formHidden($form->get('end_hour'));
+        echo $this->formHidden($form->get('shift_now'));
+        echo $this->formHidden($form->get('product_sku'));
+    ?>
+
+    <div class="row">
+        <div class="col-md-4">
+            <label for="skuprefix">SKU-Prefijo:</label>
+            <?= $this->formRow($form->get('sku_prefix')); ?><br/>
+            <label for="medida">Medida:</label>
+            <?= $this->formRow($form->get('sku_size')); ?>
+
+        </div>
+        <div class="col-md-4">
+            <label for="sku">SKU:</label>
+            <?= $this->formRow($form->get('sku_right')); ?>
+        </div>
+        <div class="col-md-4">
+            <label for="sku">Turno:</label>
+            <?= $this->formRow($form->get('shift_id')); ?><br/>
+
+            <?= $this->formRow($form->get('guardarBtn')); ?>
+        </div>
+    </div>
+
+    <div class="row row_prod"">
+        <div class="col-md-1">
+            <input type="checkbox" name="check-all" id="check-all" />
+
+        </div>
+        <div class="col-md-2 lbl-hr">
+            <label for="sku"><strong>Seleccionar todos</strong></label>
+        </div>
+    </div>
+
+    <?php
+        $start_prom_min = (!empty($no_program_dm->id))? 1 : 5;
+
+        for($i = 1; $i <= $topCount ; $i++):
+
+            if($shift_id != 2 && $topCount == $i){
+                $topMinutes = 30;
+            }
+    ?>
+
+        <div class="row row_prod" id="phr1_div_<?=$i?>">
+            <div class="col-md-1">
+                <input type="checkbox" name="pchk_<?=$i?>" id="pchk_<?=$i?>" pfix="multiple-prod-add"/>
+                <input type="hidden" name="p_hr<?=$i?>" id="p_hr<?=$i?>" />
+            </div>
+            <div class="col-md-2 lbl-hr">
+                <span id="phr1_txt_<?=$i?>">7:00 - 8:00 hrs</span>
+            </div>
+            <div class="col-md-3">
+                <label for="mp">Minutos Programados:</label>
+                <select name="p_min_txt_<?=$i?>" id="p_min_txt_<?=$i?>" class="form-control">
+                    <option value="0">Seleccione...</option>
+
+                    <?php for($j = $start_prom_min; $j <= $topMinutes; $j = $j + $start_prom_min):?>
+                        <option value="<?= $j ?>"><?= $j ?></option>
+                    <?php endfor; ?>
+
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="ps">Producción Estandar:</label>
+                <input type="text" id="pstd_txt_<?=$i?>" name="pstd_txt_<?=$i?>" class="form-control" readonly="readonly" value="0"/>
+            </div>
+        </div>
+
+    <?php
+        endfor;
+    ?>
+
+	<?= $this->form()->closeTag(); ?>
+
+    </div>
+</section>
+
+
+
+

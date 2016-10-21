@@ -1,0 +1,61 @@
+<script type="text/javascript">
+    var is_gerente_usr = <?= ($isGerenteUser)? 1 : 0 ?>;
+</script>
+
+<?php
+$this->HeadScript()->appendFile($basePath . '/js/Scrap/list.js', 'text/javascript');
+$title = 'Listado de Scrap';
+$this->headTitle($title);
+?>
+
+<section class="work-area">
+    <div class="container">
+        <h1><?= $this->escapeHtml($title); ?></h1>
+
+        <?php if(!$isGerenteUser): ?>
+
+        <a href="<?= $this->url('home')."Scrap/add/".$this->escapeHtml($productionModelId) ?>" class="btn btn-info btn-lg btn-add">
+            Agregar Nuevo <span class="icon-plus-3"></span>
+        </a>
+
+        <?php endif; ?>
+<br/>
+<br/>
+
+<?php
+if($scrapList->count() > 0){ ?>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Description</th>
+                <th>Cantidad</th>
+                <th>Porcentaje</th>
+                <th>Fecha Creación</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($scrapList as $scrap) : ?>
+                <tr>
+                    <td><?= $this->escapeHtml($scrap->code);?></td>
+                    <td><?= $this->escapeHtml($scrap->description);?></td>
+                    <td><?= $this->escapeHtml($scrap->quantity);?></td>
+                    <td><?= $this->escapeHtml($scrap->percentage);?> %</td>
+                    <td><?= $this->escapeHtml($scrap->create_date);?></td>
+                    <td>
+                        <?php if(!$isGerenteUser): ?>
+                        <a href="<?= $this->url('home')."Scrap/edit/".$this->escapeHtml($scrap->id) ?>" class="btn btn-warning btn-block">
+                            <span class="icon-pencil"> EDITAR
+                        </a>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php } ?>
+
+
+    </div>
+</section>

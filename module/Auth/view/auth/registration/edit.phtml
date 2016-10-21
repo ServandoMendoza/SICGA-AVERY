@@ -1,0 +1,56 @@
+<section class="work-area">
+    <h1>Editar Usuario</h1>
+    <?php
+
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('auth/default',
+        array('controller' => 'registration',
+            'action' => 'edit',
+            'id' => $usr_id)));
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formHidden($form->get('usr_id'));
+    echo $this->formHidden($form->get('photo'));
+    echo $this->formHidden($form->get('usr_password_salt'));
+    ?>
+
+    <div class="col-md-6">
+        <label for="agrupacion">Nombre:</label>
+        <?= $this->formRow($form->get('usr_full_name')); ?><br/>
+
+        <label for="agrupacion">Usuario:</label>
+        <?= $this->formRow($form->get('usr_name')); ?><br/>
+
+        <label for="codigo">Email:</label>
+        <?= $this->formRow($form->get('usr_email')); ?><br/>
+
+        <label for="codigo">Contraseña:</label>
+        <?= $this->formRow($form->get('usr_password')); ?><br/>
+
+        <label for="codigo">Repetir contraseña</label>
+        <?= $this->formRow($form->get('usr_password_confirm')); ?><br/>
+
+        <label for="codigo">Tipo de usuario:</label>
+        <?= $this->formRow($form->get('usrl_id')); ?><br/>
+
+        <label for="codigo">Turno:</label>
+        <?= $this->formRow($form->get('id_shift')); ?><br/>
+
+        <label for="codigo">Token bypass:</label>
+        <?= $this->formRow($form->get('bypass_token')); ?><br/>
+
+        <label for="agrupacion">Foto (solo formato jpg o png, max: 4MB):</label>
+        <?= $this->formRow($form->get('image_file')); ?><br/>
+
+        <?= $this->formSubmit($form->get('submit')); ?>
+
+        <?= $this->form()->closeTag(); ?>
+
+    </div>
+    <div class="col-md-6">
+        <?php if($user->photo): ?>
+            <img src="<?= str_replace("./public","",$user->photo) ?>" width="100">
+        <?php endif; ?>
+    </div>
+</section>

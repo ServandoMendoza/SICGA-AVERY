@@ -1,0 +1,75 @@
+<?php
+//$this->HeadScript()->appendFile($basePath . '/js/DeadTime/Work/add.js', 'text/javascript');
+$title = 'Orden Abierta';
+$this->headTitle($title);
+
+?>
+
+<section class="work-area">
+    <div class="container">
+        <h1>Formato De Orden De Trabajo Abierta</h1>
+
+        <?php
+
+        if ($this->flashMessenger()->hasMessages()) {
+
+            echo '<div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>';
+
+            $messages = $this->flashMessenger()->getMessages();
+            foreach($messages as $message) {
+                echo $message;
+            }
+
+            echo '</div>';
+        }
+        ?>
+
+        <?php
+        $form = $this->form;
+        $form->setAttribute('action', $this->url('OpenOrder', array('action' => 'add', 'id' => $req_number)));
+        $form->setAttribute('id', 'tech-work');
+        $form->setAttribute('class', 'form-horizontal');
+        $form->setAttribute('role', 'form');
+
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+        ?>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="medida">Número de requisición: </label> <span class="marron"><?= $req_data->number ?></span><br/>
+                <label for="medida">Turno: </label> <span class="marron"><?= $shift_name ?></span><br/>
+                <label for="medida">Problema: </label> <span class="marron"><?= $req_data->problem ?></span>
+            </div>
+            <div class="col-md-6">
+                <label for="medida">Ténico: </label> <span class="marron"><?= $req_data->tech_name ?></span><br/>
+                <label for="medida">Máquina: </label> <span class="marron"><?= $req_data->machine_name ?></span><br/>
+                <label for="medida">Área: </label> <span class="marron"><?= $req_data->area_name ?></span><br/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <br/>
+                <label for="medida">Avances Detallados:</label><br/>
+                <?= $this->formRow($form->get('details')); ?><br/>
+
+                <label for="medida">Siguiente Turno Tiene Plan?</label>
+                <?= $this->formRow($form->get('next_shift_plan')); ?><br/><br/>
+
+                <label for="medida">Recomendaciones:</label>
+                <?= $this->formRow($form->get('recommendations')); ?><br/>
+
+                <label for="medida">Solucion de Problema:</label>
+                <?= $this->formRow($form->get('problem_solution')); ?><br/>
+
+                <?= $this->formRow($form->get('saveBtn')); ?>
+            </div>
+
+            <?= $this->form()->closeTag(); ?>
+
+        </div>
+</section>

@@ -1,0 +1,52 @@
+<script type="text/javascript">
+    var editData = {
+        returnUrl : "<?= $this->url('home')."Areas/detail/". $id_area ?>"
+    }
+</script>
+
+<?php
+    $this->HeadScript()->appendFile($basePath . '/js/Areas/create_cells.js', 'text/javascript');
+    $title = 'Tiempo Muerto';
+    $this->headTitle($title);
+?>
+
+<section class="work-area">
+
+    <select id="base-machine-sel" style="display:none">
+        <?php
+        foreach($machineList as $machine)
+            echo "<option value='$machine->id'>$machine->name</option>";
+        ?>
+    </select>
+
+    <div class="row">
+        <div class="container">
+            <p>Paso 3: Crear Celdas y asignar máquinas </p>
+
+            <input type="hidden" id="id_sub_area" value="<?= $id_sub_area?>"/>
+
+            <button id='addCell' class="btn btn-success btn-lg btn-block" style="width:15%;margin-bottom:15px;">+ Agregar Cell</button>
+
+
+            <ul id="cellList">
+                <li class="cell">
+
+                    <input type="text" id="cell-name-1" name="cell-name" value="New Cell 1"
+                           pfix="1" class="form-control c-cell-input"/>
+
+                    <button class="delete btn btn-info btn-lg btn-add b-cell-input" >Delete</button>
+                    <button class="addMachine btn btn-info btn-lg btn-add b-cell-input" pfx-am="1">Add Machine</button>
+
+                    <ul class="machine-list-1">
+
+                    </ul>
+
+                </li>
+            </ul>
+
+            <input type="button" value="Asignar" id="assign-btn" class="btn btn-success btn-lg btn-block" style="width:15%;margin-bottom:15px;"/>
+
+
+        </div>
+    </div>
+</section>

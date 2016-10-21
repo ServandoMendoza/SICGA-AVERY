@@ -1,0 +1,44 @@
+<?php
+   // $this->HeadScript()->appendFile($basePath . '/js/Scrap/add.js', 'text/javascript');
+    $title = 'Productos';
+    $this->headTitle($title);
+?>
+
+<?php
+    $title = 'Agregar Producto';
+    $this->headTitle($title);
+
+?>
+
+<section class="work-area">
+    <h1><?= $this->escapeHtml($title); ?></h1>
+        <?php
+            $form = $this->form;
+            $form->setAttribute('action', $this->url('Products', array('action' => 'add')));
+            $form->prepare();
+
+
+            echo $this->form()->openTag($form);
+
+        ?>
+
+        <div class="col-md-6">
+            <label for="sku">Sku:</label>
+            <?= $this->formRow($form->get('sku')); ?><br/>
+       
+        
+            <label for="name">Nombre:</label>
+            <?= $this->formRow($form->get('name')); ?><br/>
+        
+            <label for="description">Descripcion:</label>
+            <?= $this->formRow($form->get('description')); ?><br/>
+        
+            <label for="size">Medida:</label>
+            <?= $this->formRow($form->get('size')); ?><br/>
+        
+            
+            <?= $this->formRow($form->get('saveBtn')); ?>
+        </div>
+
+        <?= $this->form()->closeTag(); ?>
+</section>

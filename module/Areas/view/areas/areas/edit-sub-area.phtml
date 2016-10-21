@@ -1,0 +1,78 @@
+<script type="text/javascript">
+    var editData = {
+        returnUrl : "<?= $this->url('home')."Areas/detail/". $id_area ?>"
+    }
+</script>
+
+
+<?php
+$this->HeadScript()->appendFile($basePath . '/js/Areas/edit_sub_area.js', 'text/javascript');
+$title = 'Area - Editar SubArea';
+$this->headTitle($title);
+?>
+
+<section class="work-area">
+
+    <select id="base-machine-sel" style="display:none">
+        <?php
+        foreach($machineList as $machine)
+            echo "<option value='$machine->id'>$machine->name</option>";
+        ?>
+    </select>
+
+    <div class="row">
+        <div class="container">
+            <p>Editar: Crear Celdas y asignar máquinas </p>
+
+            <input type="hidden" id="id_sub_area" value="<?= $id_sub_area?>"/>
+            <input type="hidden" id="id_area" value="<?= $id_area?>"/>
+
+            <button id='addCell' class="btn btn-success btn-lg btn-block" style="width:15%;margin-bottom:15px;">+ Agregar Cell</button>
+
+            <ul id="cellList">
+            <?php
+                $key = 1;
+                foreach($cellList as $cell):
+            ?>
+                <li class="cell">
+                    <input type="text" id="cell-name-<?= $key ?>" name="cell-name" value="<?= $cell["cell"]["name"] ?>"
+                           pfix="<?= $key ?>" cidx="<?= $cell["cell"]["id"] ?>" class="form-control c-cell-input"/>
+
+                    <button class="delete btn btn-info btn-lg btn-add b-cell-input" >Delete</button>
+                    <button class="addMachine btn btn-info btn-lg btn-add b-cell-input" pfx-am="<?= $key ?>">Add Machine</button>
+
+                    <ul class="machine-list-<?= $key ?>">
+                    <?php foreach($cell["cell_machine"] as $cell_machine):?>
+
+                        <li class="machine">
+                            <select style="" name="machine-sel" class="form-control b-cell-input">
+                                <?php
+                                    foreach($machineList as $machine){
+                                        if($machine->id == $cell_machine["id"])
+                                            echo "<option value='$machine->id' SELECTED>$machine->name</option>";
+                                        else
+                                            echo "<option value='$machine->id'>$machine->name</option>";
+                                    }
+                                ?>
+                            </select>
+                            <button class="deleteMachine btn btn-danger btn-lg btn-add b-cell-input">Delete</button>
+                        </li>
+
+                    <?php endforeach; ?>
+
+                    </ul>
+                </li>
+
+            <?php
+                $key++;
+                endforeach;
+            ?>
+
+            </ul>
+
+            <input type="button" value="Modificar" id="assign-btn" class="btn btn-success btn-lg btn-block" style="width:15%;margin-bottom:15px;"/>
+
+
+        </div>
+    </div>
+</section>

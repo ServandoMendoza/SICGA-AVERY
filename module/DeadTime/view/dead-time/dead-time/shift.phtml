@@ -1,0 +1,102 @@
+<?php
+$this->HeadScript()->appendFile($basePath . '/js/DeadTime/shift.js', 'text/javascript');
+?>
+
+<script type="text/javascript">
+    var actualShiftCount = <?=  $shiftNumber ?>;
+    var dateJs = new Date(<?= $dateUnix * 1000 ?>);
+
+</script>
+
+<section class="work-area">
+
+    <div class="container">
+        <div class="info-shift">
+            <div class="num-shift">
+                <label for="num-sh">Turno : </label>&nbsp;
+                <label for="lbl_num_shift" id="num_shift"><span id="shift_container"></span></label>
+            </div>
+            <div class="date-shift">
+                <label for="dat-sh">Fecha : </label>
+                <label for="lbl_dat_shift" id="dat_shift"><span id="date_container"></span></label>
+            </div>
+        </div>
+
+        <table class="table table-hover detail">
+            <thead>
+            <tr>
+                <th>Sku</th>
+                <th>Hr. Prod.</th>
+                <th>Sección</th>
+                <th>Problema</th>
+                <th>Tiempo</th>
+                <th>Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            $classGroup = 'group';
+            if($productionDeadTimes->count() > 0)
+            {
+                foreach ($productionDeadTimes as $productionDeadTime) :
+                    if($start_hour != $productionDeadTime->start_hour)
+                    {
+                        $start_hour = $productionDeadTime->start_hour;
+
+                        if($classGroup == 'group')
+                            $classGroup = '';
+                        else
+                            $classGroup = 'group';
+                    }
+                ?>
+                <tr class="<?= $classGroup ?>">
+                    <td><?= $this->escapeHtml($productionDeadTime->product_sku);?></td>
+                    <td><?= $this->escapeHtml($productionDeadTime->start_hour) . ' - ' . $this->escapeHtml($productionDeadTime->end_hour);?></td>
+
+                    <?php
+                    // Aplica para problemas y secciones pre-definidos en base de datos
+                    if((int)$productionDeadTime->death_problem_id > 0)
+                    {
+                        ?>
+                        <td><?= $this->escapeHtml($productionDeadTime->ds_name);?></td>
+                        <td><?= $this->escapeHtml($productionDeadTime->dp_description);?></td>
+
+                    <?php
+                    }
+                    else
+                    {
+                        ?>
+                        <td><?= $this->escapeHtml($productionDeadTime->section);?></td>
+                        <td><?= $this->escapeHtml($productionDeadTime->problem);?></td>
+                    <?php
+                    }
+                    ?>
+
+                    <td>
+                        <?=
+                        ($productionDeadTime->dead_time == 0 )?
+                            "N/A" : number_format((float)$productionDeadTime->dead_time, 2, '.', '')." Mins";
+                        ?>
+                    </td>
+
+                    <td><?= ($productionDeadTime->machine_status) ? '<span class="activo">Activo</span>' : '<span class="inactivo">Inactivo</span>' ?></td>
+                </tr>
+
+                <?php endforeach;
+            }
+            else
+            {
+            ?>
+                <tr>
+                    <td colspan="6">No hay registros capturados</td>
+                </tr>
+
+            <?php
+            }
+            ?>
+
+            </tbody>
+        </table>
+
+    </div>
+</section>

@@ -1,0 +1,37 @@
+<?php $this->HeadScript()->appendFile($basePath . '/js/Auth/login.js', 'text/javascript'); ?>
+
+<div class="form">
+    <figure>
+        <img src="<?= $this->basePath('img/logo_blanco.png')?>" alt="avery">
+    </figure>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('auth/default', array('controller' => 'index', 'action' => 'login')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+
+echo $this->formHidden($form->get('cprod-name'));
+
+?>
+
+    <label for="usuario">Usuario:</label>
+    <?= $this->formRow($form->get('usr_name')); ?>
+    <br/>
+
+    <label for="contrasena">Contraseña</label>
+    <?= $this->formRow($form->get('usr_password')); ?>
+    <br/>
+
+    <label for="celdaproduccion">Máquina</label>
+	<?= $this->formRow($form->get('cprod-cbx')); ?>
+	<br/>	
+    <p id="lbl-error-login" class="lbl-error"><?= $this->escapeHtml($this->messages); ?></p>
+
+ <?= $this->formRow($form->get('submit')); ?>
+
+<?= $this->form()->closeTag(); ?>
+
+
+</div>
+

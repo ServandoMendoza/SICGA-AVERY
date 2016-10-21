@@ -1,0 +1,58 @@
+<section class="work-area">
+    <div class="container">
+        <h1>Trabajos/Descanso</h1>
+
+        <a href="<?= $this->url('home')."Requisition/add"?>" class="btn btn-warning btn-lg btn-add pull-right">
+            <span class="icon-arrow-left"></span> Regresar
+        </a><br/>
+
+        <?php foreach($techWorkList as $techWork): ?>
+        <table class="trabajos-tbl">
+            <tr>
+                <td>Numero De Trabajo </td>
+                <td><?= $techWork->number; ?></td>
+            </tr>
+            <tr>
+                <td>Fecha </td>
+                <td><?= $techWork->create_date; ?></td>
+            </tr>
+            <tr>
+                <td>Tipo de Trabajo </td>
+                <td><?= $techWork->type; ?></td>
+            </tr>
+            <tr>
+                <td>Area</td>
+                <td><?= $techWork->area_name; ?></td>
+            </tr>
+            <tr>
+                <td>Maquina</td>
+                <td><?= $techWork->machine_name; ?>
+            </tr>
+            <tr>
+                <td>Turno</td>
+                <td><?= $techWork->shift_name; ?>
+            </tr>
+            <tr>
+                <td>Tecnico</td>
+                <td><?= $techWork->usr_name; ?>
+            </tr>
+            <tr>
+                <td>Estado de Trabajo</td>
+                <td><?= $techWork->status; ?>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td><?= $techWork->total; ?>
+            </tr>
+            <tr>
+                <td>Comentarios</td>
+                <td><?= $techWork->comments; ?>
+            </tr>
+        </table>
+            <br/><br/><br/>
+
+        <?php endforeach; ?>
+
+
+    </div>
+</section>

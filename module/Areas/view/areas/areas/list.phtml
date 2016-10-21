@@ -1,0 +1,44 @@
+<?php
+$this->HeadScript()->appendFile($basePath . '/js/Scrap/list.js', 'text/javascript');
+$title = 'Listado de Areas';
+$this->headTitle($title);
+?>
+
+<section class="work-area">
+    <h1><?= $this->escapeHtml($title); ?></h1>
+    <a href="<?= $this->url('home')."Areas/create" ?>"
+       class="btn btn-info btn-lg btn-add pull-right"> Agregar Área
+        <span class="icon-plus-3"></span>
+    </a>
+
+    <table id="promotion-model-tbl" class="table tabla">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha Creacion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($areaslst as $area) :?>
+                <tr>
+                    <td><?= $this->escapeHtml($area->name);?></td>
+                    <td><?= $this->escapeHtml($area->create_date);?></td>
+                    <td>
+                        <a href="<?= $this->url('home')."Areas/detail/".
+                            $this->escapeHtml($area->id) ?>" class="btn btn-success btn-block"
+                           style="width:45%;float:left;margin-right: 10px;">
+                            <span class="icon-pencil"> Ver SubArea</span>
+                        </a>
+
+                        <a href="<?= $this->url('home')."Areas/edit/".
+                        $this->escapeHtml($area->id) ?>" class="btn btn-success btn-warning"
+                           style="width:25%;float:left">
+                            <span class="icon-pencil"> Editar</span>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>

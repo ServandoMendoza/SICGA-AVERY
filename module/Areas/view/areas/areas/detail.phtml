@@ -1,0 +1,52 @@
+<?php
+    $this->HeadScript()->appendFile($basePath . '/js/Areas/lista-subareas.js', 'text/javascript');
+    $title = 'Listado de SubAreas';
+    $this->headTitle($title);
+?>
+
+<section class="work-area">
+    <h1>Sub Areas</h1>
+    <a href="<?= $this->url('home')."Areas/assignSubArea/".$id_area ?>"
+       class="btn btn-info btn-lg btn-add pull-right"> Agregar SubÁrea-Máquina
+        <span class="icon-plus-3"></span>
+    </a>
+    <div style="width: 40%;">
+        <?php
+            if(count($subAreaDetailLst)):
+                foreach($subAreaDetailLst as $key => $subAreaDetail):
+                    if($subAreaName != $subAreaDetail['sub_area_name'] && !empty($subAreaDetail['sub_area_name']))
+                    {
+                        echo "<h1 class='dark-red'>{$subAreaDetail["sub_area_name"]}</h1>";
+
+                        echo '<a href="javascript:removeSubArea('.$subAreaDetail["sub_area_id"].')"
+                           class="btn btn-danger btn-lg btn-add pull-right"> Borrar
+                                        <span class="icon-trashcan"></span>
+                        </a><a href="'.$this->url('home').'Areas/editSubArea/'.$subAreaDetail["sub_area_id"].'/area/'.$id_area.'"
+                           class="btn btn-info btn-lg btn-add pull-right"> Editar
+                                        <span class="icon-plus-3"></span>
+                        </a><br/>';
+
+
+                        $subAreaName =$subAreaDetail['sub_area_name'];
+                    }
+
+                    if($cell_id != $subAreaDetail['cell_id'] && !empty($subAreaDetail['cell_id']))
+                    {
+                        echo "<h3 style='color:rgb(55, 165, 10)'>{$subAreaDetail["cell_name"]}</h3> ";
+                        $cell_id =  $subAreaDetail['cell_id'];
+                    }
+
+                    if($cell_id == $subAreaDetail['cell_id'] && !empty($subAreaDetail['cell_id']))
+                    {
+                        echo "<h5 class='list-group-item'>{$subAreaDetail["machine_name"]}</h5>";
+
+                    }
+                endforeach;
+            else: ?>
+            <h3>No hay sub áreas asignadas</h3>
+        <?php
+        endif;
+
+        ?>
+    </div>
+</section>

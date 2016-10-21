@@ -1,0 +1,91 @@
+<?php
+//$this->headLink()->appendStylesheet($basePath . '/css/datatables/jquery.dataTables.css', 'text/css');
+//$this->headLink()->appendStylesheet($basePath . '/css/datatables/demo.css', 'text/css');
+
+$this->HeadScript()->appendFile($basePath . '/js/Datatables/jquery.dataTables.js', 'text/javascript');
+$this->HeadScript()->appendFile($basePath . '/js/DeadTime/Requisition/pendings.js', 'text/javascript');
+
+$title = 'Pendientes';
+$this->headTitle($title);
+?>
+
+<script type="text/javascript">
+    var auxObj = {
+        edit_url : "<?= $this->url('home')."Requisition/" ?>"
+    };
+</script>
+
+<section class="work-area">
+    <div class="container">
+        <h1>Reporte Scrap del Día</h1>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table id="example" class="table table-hover" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>SKU</th>
+                        <th>Hora Inicio</th>
+                        <th>Hora Fin</th>
+                        <th>Código</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Porcentaje</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>SKU</th>
+                        <th>Hora Inicio</th>
+                        <th>Hora Fin</th>
+                        <th>Código</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Porcentaje</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').dataTable( {
+            "processing": true,
+            "serverSide": true,
+            "order": [ 1, 'desc' ],
+            "ajax": {
+                "url": "jsonList",
+                "dataType": "jsonp"
+            }
+//            "columnDefs": [
+//                {
+//                    "render": function ( data, type, row ) {
+//                        return "<a href=\"javascript:editar('"+data+"')\">"+data+"</a>";
+//                    },
+//                    "targets": 1
+//                },
+//                {
+//                    "render": function ( data, type, row ) {
+//                        if(data < 1)
+//                            return "<span style='color:red'>No</span>";
+//                        else
+//                            return "<span style='color:green'>Si</span>";
+//                    },
+//                    "targets": 5
+//                },
+//                {
+//                    "render": function ( data, type, row ) {
+//                        if(data < 1)
+//                            return "<span style='color:red'>No</span>";
+//                        else
+//                            return "<span style='color:green'>Si</span>";
+//                    },
+//                    "targets": 6
+//                },
+//            ]
+        } );
+    } );
+</script>

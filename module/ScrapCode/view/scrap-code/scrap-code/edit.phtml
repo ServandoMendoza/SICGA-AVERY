@@ -1,0 +1,43 @@
+<?php
+//$this->HeadScript()->appendFile($basePath . '/js/Scrap/edit.js', 'text/javascript');
+$title = 'Editar Código Scrap';
+$this->headTitle($title);
+
+?>
+
+
+<section class="work-area">
+
+    <h1><?= $this->escapeHtml($title); ?></h1>
+
+    <?php
+        $form = $this->form;
+
+        $form->setAttribute('action', $this->url(
+            'ScrapCode',
+            array(
+                'action' => 'edit',
+                'id' => $ScrapCode->id)
+        ));
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+        echo $this->formHidden($form->get('id'));
+
+    ?>
+
+    <div class="col-md-6">
+        <label for="code">Codigo:</label>
+        <?= $this->formRow($form->get('code')); ?><br/>
+
+        <label for="description">Descripcion:</label>
+        <?= $this->formRow($form->get('description')); ?><br/>
+
+        <label for="machine_id">machine_id:</label>
+        <?= $this->formRow($form->get('machine_id')); ?><br/>
+
+        <?= $this->formRow($form->get('saveBtn')); ?>
+    </div>
+
+    <?= $this->form()->closeTag(); ?>
+</section>

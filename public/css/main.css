@@ -1,0 +1,592 @@
+/*MENU ESTILOS
+	1.-GENERAL
+	2.-HEADER
+	3.-INFORMACION SISTEMA
+	4.-AREA DE TRABAJO
+*/
+
+/*--------------------- 1.-GENERAL ------------------*/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+
+body
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size:16px;
+}
+
+.btn:active, .btn:focus
+{
+    outline: 0px !important;
+}
+
+textarea
+{
+    resize:none;
+}
+
+/*-------------------- 2-HEADER -----------------------*/
+
+header
+{
+    border-bottom:1px solid #d1d1d1;
+    height: 130px;
+    width: 100%;
+}
+
+.logo
+{
+    float: left;
+    height: 100%;
+    width: 20%;
+}
+
+.logo img
+{
+    padding-left: 65px;
+    height: 100%;
+    width: 100%;
+}
+
+.menu-bar
+{
+    float: left;
+    height: 100%;
+    position: relative;
+    width: 80%;
+}
+
+.quick-menu
+{
+    float: right;
+    height: 90%;
+    margin: 5px auto;
+    position: relative;
+    width: 100%;
+}
+
+.quick-menu ul
+{
+    /*float:left;*/
+    padding-left:100px;
+    width: 100%;
+}
+
+.quick-menu ul li
+{
+    background: #013e6b;
+    border:1px solid #0E2C71;
+    border-radius: 4px;
+    color:#fff;
+    float: left;
+    font-size: 1.1em;
+    height: 90px;
+    list-style-type: none;
+    margin: 5px .2%;
+    padding-top: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 17%;
+}
+
+.quick-menu ul li:hover
+{
+    box-shadow: inset 0px 0px 60px #003357;
+    cursor: pointer;
+}
+
+.quick-menu ul li:active
+{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+/*----------------- 3.-INFORMACION SISTEMA ---------------*/
+.bar-info-system
+{
+    background: #013e6b;
+    box-shadow: inset 0px 0px 18px #003357;
+    border-bottom:1px solid #d1d1d1;
+    color:#fff;
+    height: 100px;
+    width: 100%;
+}
+
+.bar-info-system div.info-system
+{
+    float: left;
+    padding-left: 18px;
+}
+
+.bar-info-system div.info-user
+{
+    float: right;
+    padding-right: 28px;
+    padding-top: 20px;
+}
+
+.bar-info-system div.info-user h4
+{
+    color:#5cb85c;
+}
+
+.bv
+{
+    color:#fff !important;
+}
+
+/*-------------------- 4.-AREA DE TRABAJO -----------------------*/
+.work-area
+{
+    margin:20px auto;
+    width: 90%;
+}
+
+.info-shift
+{
+    background: #428bca;
+    border:1px solid #357ebd;
+    border-radius: 5px;
+    color: #fff;
+    height: 40px;
+    margin-bottom: 10px;
+    padding: 7px;
+    vertical-align: middle;
+    width: 365px;
+}
+
+.num-shift,
+.date-shift
+{
+    float: left;
+    height: 40px;
+    width: 45%;
+}
+
+.num-shift
+{
+    width: 48% !important;
+}
+
+.work-area table
+{
+    border:1px solid #d1d1d1;
+    text-align: center;
+}
+
+.work-area th
+{
+    background: #013e6b;
+    color:#e4e4e4;
+    text-align: center;
+}
+
+
+.tabla td
+{
+    width: 10% !important;
+
+}
+
+.btn-add
+{
+    margin: 10px 3px !important;
+}
+
+.back
+{
+    float: left;
+}
+
+.next
+{
+    float: right;
+}
+
+.minutes
+{
+    margin-top: 40px;
+}
+
+.row_prod
+{
+    margin-top:20px;
+}
+
+.row_prod input[type="checkbox"]
+{
+    display: none;
+}
+
+.row_prod input[type="checkbox"]
+{
+    background: url(../img/chk.png) left top no-repeat;
+    cursor:pointer;
+    display: inline-block;
+    height: 40px;
+    margin: 8px 4px 0 0;
+    vertical-align: middle;
+    width: 40px;
+}
+
+.row_prod input[type="checkbox"]:cheked
+{
+    background: url(../img/chk_cheked.png) left top no-repeat;
+    cursor:pointer;
+}
+
+.lbl-hr
+{
+    padding-top: 15px;
+}
+
+.form-quick
+{
+    margin: 20px auto;
+    width: 500px;
+}
+
+.lbl-error
+{
+    color:red;
+}
+
+.inactivo
+{
+    color: red;
+    font-weight: bold;
+}
+
+.activo
+{
+    color:green;
+    font-weight: bold;
+}
+
+.dark-red
+{
+    color:#8B1218;
+}
+
+.msj-desc
+{
+    font-size: 20px;
+    text-align: center;
+}
+
+.progressPercentage
+{
+    font-size:12px;
+    font-weight:bold;
+}
+
+.clr-margin
+{
+    margin:0px;
+}
+
+table.detail tr.group > td
+{
+    background-color:#9FD8A3;
+}
+
+/* -----------------  5. Areas ------------------*/
+
+/*
+.cell
+{
+    background-color: #3278b3;
+}
+
+*/
+
+.c-cell-input
+{
+    width:30%;
+    display: inline;
+}
+
+.b-cell-input
+{
+    width: 20%;
+    display: inline;
+}
+
+.green
+{
+    color:#5cb85c;
+}
+
+/* -----------------  5. Requisition ------------------*/
+
+.light-purp-bg
+{
+    background-color: #bfb2cf;
+}
+
+.red-bg
+{
+    background-color: #ed1c24;
+}
+
+.green-bg
+{
+    background-color: #22b14c
+}
+
+.light-yellow-bg
+{
+    background-color:#fff200;
+}
+
+.blue-bg
+{
+    background-color: #1f497d;
+}
+
+.teal-bg{
+    background-color: #3b8194;
+}
+
+.marron
+{
+    color: #D04444;
+}
+
+.clear-margin
+{
+    margin-left:0px;
+    margin-right:0px;
+}
+
+table#pendings-lst-tbl td{
+    color:#fff;
+}
+
+table#pendings-lst-tbl td a{
+    color:#fff200;
+    text-decoration: underline;
+}
+
+table.trabajos-tbl, table.pendientes-tbl
+{
+    border:0px;
+    width:80%;
+    border-spacing: 10px;
+    border-collapse: separate;
+}
+
+table.trabajos-tbl td, table.pendientes-tbl td
+{
+    text-align:left;
+    padding: 7px;
+
+}
+
+table.trabajos-tbl td:first-child, table.pendientes-tbl td:first-child {
+    width: 35%;
+    color:#3fadda;
+}
+
+table.trabajos-tbl td:last-child
+{
+    border: 1px solid #95c4e4;
+}
+
+table.pendientes-tbl td:last-child
+{
+    border: 1px solid #c0504d;
+}
+
+/*nav var*/
+
+@media (min-width: 768px) {
+    .navbar-collapse {
+        height: auto;
+        border-top: 0;
+        box-shadow: none;
+        max-height: none;
+        padding-left:0;
+        padding-right:0;
+    }
+    .navbar-collapse.collapse {
+        display: block !important;
+        width: auto !important;
+        padding-bottom: 0;
+        overflow: visible !important;
+    }
+    .navbar-collapse.in {
+        overflow-x: visible;
+    }
+
+    .navbar
+    {
+        max-width:300px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .navbar-nav,
+    .navbar-nav > li,
+    .navbar-left,
+    .navbar-right,
+    .navbar-header
+    {float:none !important;}
+
+    .navbar-right .dropdown-menu {left:0;right:auto;}
+    .navbar-collapse .navbar-nav.navbar-right:last-child {
+        margin-right: 0;
+    }
+}
+
+
+/* Base Styles */
+#cssmenu,
+#cssmenu ul,
+#cssmenu li,
+#cssmenu a {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style: none;
+    font-weight: normal;
+    text-decoration: none;
+    line-height: 1;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    position: relative;
+}
+#cssmenu {
+    width: 250px;
+    border-bottom: 4px solid #656659;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding-top: 25px;
+}
+#cssmenu a {
+    line-height: 1.3;
+}
+#cssmenu > ul > li:first-child {
+    background: #EA040C;
+    background: -moz-linear-gradient(#EA040C 0%, #8B1218 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #EA040C), color-stop(100%, #8B1218));
+    background: -webkit-linear-gradient(#EA040C 0%, #8B1218 100%);
+    background: linear-gradient(#EA040C 0%, #8B1218 100%);
+    border: 1px solid #8B1218;
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+}
+#cssmenu > ul > li:first-child > a {
+    padding: 15px 10px;
+    background: url(../img/pattern.png) top left repeat;
+    border: none;
+    border-top: 1px solid #818176;
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+    font-family: 'Ubuntu', sans-serif;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+    text-shadow: 0 -1px 1px #000000;
+}
+#cssmenu > ul > li:first-child > a > span {
+    padding: 0;
+}
+#cssmenu > ul > li:first-child:hover {
+    background: #EA040C;
+    background: -moz-linear-gradient(#EA040C 0%, #8B1218 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #EA040C), color-stop(100%, #8B1218));
+    background: -webkit-linear-gradient(#EA040C 0%, #8B1218 100%);
+    background: linear-gradient(#EA040C 0%, #8B1218 100%);
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+
+}
+#cssmenu > ul > li {
+    background: #013E6B;
+    background: -moz-linear-gradient(#013E6B 0%, #1F6293 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #013E6B), color-stop(100%, #1F6293));
+    background: -webkit-linear-gradient(#013E6B 0%, #1F6293 100%);
+    background: linear-gradient(#013E6B 0%, #1F6293 100%);
+}
+#cssmenu > ul > li:hover {
+    background: #052238;
+    background: -moz-linear-gradient(#052238 0%, #1F6293 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #052238), color-stop(100%, #1F6293));
+    background: -webkit-linear-gradient(#052238 0%, #1F6293 100%);
+    background: linear-gradient(#052238 0%, #1F6293 100%);
+}
+#cssmenu > ul > li > a {
+    font-size: 14px;
+    display: block;
+    background: url(../img/pattern.png) top left repeat;
+    color: #ffffff;
+    border: 1px solid #013E6B;
+    border-top: none;
+    text-shadow: 0 -1px 1px #55A4DF;
+}
+#cssmenu > ul > li > a > span {
+    display: block;
+    padding: 12px 10px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+#cssmenu > ul > li > a:hover {
+    text-decoration: none;
+}
+#cssmenu > ul > li.active {
+    border-bottom: none;
+}
+#cssmenu > ul > li.has-sub > a span {
+    background: url(../img/icon_plus.png) 96% center no-repeat;
+}
+#cssmenu > ul > li.has-sub.active > a span {
+    background: url(../img/icon_minus.png) 96% center no-repeat;
+}
+/* Sub menu */
+#cssmenu ul ul {
+    display: none;
+    background: #fff;
+    border-right: 1px solid #a2a194;
+    border-left: 1px solid #a2a194;
+}
+#cssmenu ul ul li {
+    padding: 0;
+    border-bottom: 1px solid #d4d4d4;
+    border-top: none;
+    background: #f7f7f7;
+    background: -moz-linear-gradient(#f7f7f7 0%, #ececec 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f7), color-stop(100%, #ececec));
+    background: -webkit-linear-gradient(#f7f7f7 0%, #ececec 100%);
+    background: linear-gradient(#f7f7f7 0%, #ececec 100%);
+}
+#cssmenu ul ul li:last-child {
+    border-bottom: none;
+}
+#cssmenu ul ul a {
+    padding: 10px 10px 10px 25px;
+    display: block;
+    color: #676767;
+    font-size: 12px;
+    font-weight: normal;
+}
+#cssmenu ul ul a:before {
+    content: "»";
+    position: absolute;
+    left: 10px;
+    color: #e94f31;
+}
+#cssmenu ul ul a:hover {
+    color: #e94f31;
+}
+
+
+a.login-link{
+    color: #3DFF8A;
+}

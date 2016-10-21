@@ -1,0 +1,77 @@
+<?php
+    $this->HeadScript()->appendFile($basePath . '/js/Scrap/shift.js', 'text/javascript');
+?>
+
+<script type="text/javascript">
+    var actualShiftCount = <?=  $shiftNumber ?>;
+    var dateJs = new Date(<?= $dateUnix * 1000 ?>);
+
+</script>
+
+<section class="work-area">
+    <div class="info-shift">
+        <div class="num-shift">
+            <label for="num-sh">Turno : </label>&nbsp;
+            <label for="lbl_num_shift" id="num_shift"><span id="shift_container"></span></label>
+        </div>
+        <div class="date-shift">
+            <label for="dat-sh">Fecha : </label>
+            <label for="lbl_dat_shift" id="dat_shift"><span id="date_container"></span></label>
+        </div>
+    </div>
+
+    <div class="container">
+            <table class="table table-hover detail">
+                <thead>
+                <tr>
+                    <th>Sku</th>
+                    <th>Hr. Prod.</th>
+                    <th>Código</th>
+                    <th>Description</th>
+                    <th>Cantidad</th>
+                    <th>Porcentaje</th>
+                    <th>Fecha Creación</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                    if($Scraps->count() > 0)
+                    {
+                        $classGroup = 'group';
+                        foreach ($Scraps as $scrap) :
+                            if($start_hour != $scrap->start_hour)
+                            {
+                                $start_hour = $scrap->start_hour;
+
+                                if($classGroup == 'group')
+                                    $classGroup = '';
+                                else
+                                    $classGroup = 'group';
+                            }
+                        ?>
+                        <tr class="<?= $classGroup ?>">
+                            <td><?= $this->escapeHtml($scrap->product_sku);?></td>
+                            <td><?= $this->escapeHtml($scrap->start_hour) . ' - ' . $this->escapeHtml($scrap->end_hour);?></td>
+                            <td><?= $this->escapeHtml($scrap->code);?></td>
+                            <td><?= $this->escapeHtml($scrap->description);?></td>
+                            <td><?= $this->escapeHtml($scrap->quantity);?></td>
+                            <td><?= $this->escapeHtml($scrap->percentage);?> %</td>
+                            <td><?= $this->escapeHtml($scrap->create_date);?></td>
+                        </tr>
+                <?php
+                        endforeach;
+                    }
+                    else
+                    {
+                ?>
+                        <tr>
+                            <td colspan="7">No hay registros capturados...</td>
+                        </tr>
+                <?php
+                    }
+                ?>
+                </tbody>
+            </table>
+
+    </div>
+</section>

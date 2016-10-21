@@ -1,0 +1,25 @@
+<section class="work-area">
+    <?php
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('Areas', array('action' => 'create')));
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+
+    ?>
+
+    <p>Paso 1: Creación del área</p>
+
+    <div class="col-md-3">
+        <label for="code">Nombre:</label>
+        <?= $this->formRow($form->get('name')); ?>
+    </div>
+
+    <div class="col-md-3">
+        <br>
+        <?= $this->formRow($form->get('saveBtn')); ?>
+    </div>
+
+
+    <?= $this->form()->closeTag(); ?>
+</section>

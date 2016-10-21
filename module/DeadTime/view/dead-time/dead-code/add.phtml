@@ -1,0 +1,44 @@
+<?php
+$this->HeadScript()->appendFile($basePath . '/js/DeadTime/DeadCode/add.js', 'text/javascript');
+$title = 'Agregar Código Tiempo Muerto';
+$this->headTitle($title);
+?>
+
+<h1><?= $this->escapeHtml($title); ?></h1>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('DeadCode', array('action' => 'add')));
+$form->setAttribute('id', 'frmAddDeadCode');
+$form->setAttribute('class', 'form-horizontal');
+$form->setAttribute('role', 'form');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+?>
+
+<div class="col-md-6">
+    <label for="agrupacion">Código:</label>
+    <?= $this->formRow($form->get('code')); ?><br/>
+
+    <label for="codigo">Descripción:</label>
+    <?= $this->formRow($form->get('description')); ?><br/>
+
+    <label for="agrupacion">Máquina:</label>
+    <?= $this->formRow($form->get('machine_id')); ?><br/>
+
+
+    <div id="group-container">
+        <label for="codigo">Grupo:</label>
+        <?= $this->formRow($form->get('death_code_group_id')); ?><br/>
+    </div>
+
+    <p id="txt-msg"></p>
+
+    <?= $this->formRow($form->get('saveBtn')); ?>
+</div>
+
+<?= $this->form()->closeTag(); ?>
+
+

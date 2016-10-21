@@ -1,0 +1,224 @@
+<script type="text/javascript">
+    var editData = {
+        shift_now : <?= ($turnNumber)?>,
+        dt_url : "<?= $this->url('home')."DeadTime/" ?>",
+        scrap_url : "<?= $this->url('home')."Scrap/" ?>",
+        pmodel_edit_url : "<?= $this->url('home')."ProductionModel/edit/" ?>",
+        machine_name :"<?= $machineName ?>",
+        is_admin: <?= ($isAdminUser)? 1 : 0 ?>
+    };
+
+    var noProgramObj = {
+        id : <?= ($noProgramDm->id)? $noProgramDm->id : 0 ?>,
+        id_machine : <?= ($machineId)? $machineId : 0 ?>,
+        is_active : <?= ($noProgramDm->is_active)? 0 : 1 ?>
+    };
+
+    actualShiftCount = editData.shift_now;
+    var dateJs = new Date(<?php echo time() * 1000 ?>);
+
+</script>
+
+<?php
+    $this->HeadScript()->appendFile($basePath . '/js/ProductionModel/index.js', 'text/javascript');
+
+    function formatFinalHour($strHour)
+    {
+        if($strHour == "24:00:00")
+        {
+            $strHour = "00:00:00";
+        }
+        return $strHour;
+    }
+
+    function calculateStatusProd($stdProd,$actProd){
+
+        return ( $actProd * 100 ) / $stdProd;
+    }
+
+    function setColorProdStatus($percentage){
+
+        //var_dump($percentage);
+
+        if($percentage > 90)
+        {
+            $styleClass = "progress-bar-success";
+        }
+        else if($percentage >= 80 && $percentage <= 90 )
+        {
+            $styleClass = "progress-bar-warning";
+        }
+        else{
+            $styleClass = "progress-bar-danger";
+        }
+
+        return $styleClass;
+    }
+
+?>
+
+<section class="work-area">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="info-shift">
+                <div class="num-shift">
+                    <label for="num-sh">Turno : </label>&nbsp;
+                    <label for="lbl_num_shift" id="num_shift"><span id="shift_container"></span></label>
+                </div>
+                <div class="date-shift">
+                    <label for="dat-sh">Fecha : </label>
+                    <label for="lbl_dat_shift" id="dat_shift"><span id="date_container"></span></label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 text-right">
+            <a href="javascript:void(0)" class="btn btn-danger btn-lg btn-add" id="setNoProgram">
+                Sin Programa <span class="glyphicon glyphicon-remove-sign"></span>
+            </a>
+
+            <a href="<?= $this->url('home')."Scrap/dailyScrap"?>" class="btn btn-warning btn-lg btn-add">
+                Scrap x Dia <span class="icon-trashcan"></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table id="promotion-model-tbl" class="table tabla">
+            <thead>
+            <tr>
+                <th>SKU</th>
+                <th>Hr<br/> Prod</th>
+                <th>Prod <br/>Actual</th>
+                <th>Prod <br/>Std</th>
+                <th>Estado</th>
+                <th>Tiempo Muerto</th>
+                <th>Scrap</th>
+                <th>Editar</th>
+
+                <?php if($isAdminUser){?>
+                    <th>Borrar</th>
+                <?php } ?>
+
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            $actual_prod_sum = 0; $std_prod_sum = 0;
+            foreach ($productionModels as $productionModel) :
+
+                $progressPercentage = calculateStatusProd($productionModel['std_production'], $productionModel['actual_production']);
+                $actual_prod_sum += $productionModel['actual_production'];
+                $std_prod_sum += $productionModel['std_production'];
+
+                ?>
+                <tr>
+                    <td id="sku-delete-<?= $productionModel['id']?>"><?= $this->escapeHtml($productionModel['sku']);?></td>
+                    <td>
+                        <?=
+                            formatFinalHour($this->escapeHtml($productionModel['start_hour']))." - ".
+                            formatFinalHour($this->escapeHtml($productionModel['end_hour']))
+                        ?>
+                    </td>
+                    <td><?= $this->escapeHtml($productionModel['actual_production']);?></td>
+                    <td><?= $this->escapeHtml($productionModel['std_production']);?></td>
+
+                    <td>
+                        <div class="progress progress progress-striped active text-center clr-margin">
+                            <div id="progressStdProd"
+                                 class="progress-bar <?= setColorProdStatus(calculateStatusProd($productionModel['std_production'], $productionModel['actual_production']))?>"
+                                 role="progressbar"
+                                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                 style="width: <?= $progressPercentage?>%">
+                            </div>
+
+                        </div>
+                        <div class="progressPercentage">
+                            <?= ($progressPercentage > 0)? number_format($progressPercentage, 2).'%': "" ?>
+                        </div>
+                    </td>
+
+                    <td>
+                        <a href="<?= $this->url('home')."DeadTime/list/".$this->escapeHtml($productionModel['id']) ?>" class="btn btn-info btn-block">
+                            <span class="icon-clock-4"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?= $this->url('home')."Scrap/list/".$this->escapeHtml($productionModel['id']) ?>" class="btn btn-warning btn-block">
+                            <span class="icon-trashcan"></span>
+                        </a>
+                    </td>
+
+                    <?php if($productionModel['actual_production'] > 0 && !$isAdminUser){ ?>
+                        <td></td>
+                    <?php
+                    }
+                    else{
+                        ?>
+                        <td>
+                            <a href="<?= $this->url('home')."ProductionModel/edit/".$this->escapeHtml($productionModel['id']) ?>" class="btn btn-success btn-block">
+                                <span class="icon-pencil"></span>
+                            </a>
+                        </td>
+                    <?php
+                    }
+
+                    if($isAdminUser)
+                    {
+                    ?>
+
+                        <td>
+                            <a href="javascript:deleteProductModel(<?= $productionModel['id'] ?>)" class="btn btn-danger btn-block">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </td>
+
+                    <?php }?>
+
+                </tr>
+
+            <?php endforeach; ?>
+            <tr>
+                <td><span style="color:#013E6B;font-weight:bolder">Total Prod:</span></td>
+                <td></td>
+                <td><?= $actual_prod_sum ?></td>
+                <td><?= $std_prod_sum ?></td>
+                <td>
+                    <?php
+                        $totalPercentage = calculateStatusProd($std_prod_sum, $actual_prod_sum);
+                    ?>
+                    <div class="progress progress progress-striped active text-center clr-margin">
+                        <div id="progressStdProd"
+                             class="progress-bar <?= setColorProdStatus($totalPercentage)?>"
+                             role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: <?= $totalPercentage?>%">
+                        </div>
+
+                    </div>
+                    <div class="progressPercentage">
+                        <?= ($totalPercentage > 0)? number_format($totalPercentage, 2).'%': "" ?>
+                    </div>
+                </td>
+                <td colspan="4"></td>
+            </tr>
+            <tr>
+                <td colspan="9">
+                    <a href="<?= $this->url('home')."DeadTime/shift/".$this->escapeHtml($turnNumber)."/date/".strtotime(date('Y-m-d')) ?>" class="btn btn-info btn-lg btn-add">
+                        Tiempos Muertos <span class="icon-clock-4"></span>
+                    </a>
+                    <a href="<?= $this->url('home')."Scrap/shift/".$this->escapeHtml($turnNumber)."/date/".strtotime(date('Y-m-d')) ?>" class="btn btn-warning btn-lg btn-add">
+                        Scrap <span class="icon-trashcan"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+            <ul class="pager">
+                <li class="previous"><a href="javascript:void(0)" id="prevShift" class="btn btn-lg">&larr; Anterior</a></li>
+                <li class="next"><a href="javascript:void(0)" id="nextShift" class="btn btn-lg">Siguiente &rarr;</a></li>
+            </ul>
+        </div>
+    </div>
+</section>

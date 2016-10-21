@@ -1,0 +1,93 @@
+<script>
+    var machine_selected = '<?= $WorkDM->id_machine ?>';
+    var tech_selected = '<?= $WorkDM->id_tech ?>';
+</script>
+
+<?php
+$this->HeadScript()->appendFile($basePath . '/js/DeadTime/Work/edit.js', 'text/javascript');
+$title = 'Editar Trabajo';
+$this->headTitle($title);
+
+?>
+
+<section class="work-area">
+    <div class="container">
+        <h1>Editar Trabajo <?= ($WorkDM->stopped)? " - Parado":"" ?></h1>
+
+
+
+        <?php if($WorkDM->free > 0): ?>
+            <div class="alert alert-danger">
+                Este trabajo ya ha sido liberado.
+            </div>
+        <?php endif; ?>
+
+        <a href="<?= $this->url('home')."Work"?>" class="btn btn-warning btn-lg btn-add pull-right">
+            <span class="glyphicon glyphicon-th-list"></span> Trabajos
+        </a><br/>
+
+        <?php
+
+        $form = $this->form;
+        $form->setAttribute('action', $this->url(
+            'Work',
+            array(
+                'action' => 'edit',
+                'id' => $WorkDM->number)
+        ));
+        $form->setAttribute('id', 'tech-work');
+        $form->setAttribute('class', 'form-horizontal');
+        $form->setAttribute('role', 'form');
+
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+
+        echo $this->formHidden($form->get('number'));
+        echo $this->formHidden($form->get('free'));
+
+        ?>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="medida">Fecha:</label><br/>
+                <?= $this->formRow($form->get('create_date')); ?><br/><br/>
+
+                <label for="medida">Tipo de Trabajo:</label>
+                <?= $this->formRow($form->get('type')); ?><br/>
+
+                <label for="medida">Area:</label>
+                <?= $this->formRow($form->get('id_area')); ?><br/>
+
+                <label for="medida">Máquina:</label>
+                <?= $this->formRow($form->get('id_machine')); ?><br/>
+
+                <label for="medida">Turno:</label>
+                <?= $this->formRow($form->get('id_shift')); ?><br/>
+
+                <label for="medida">Técnico:</label>
+                <?= $this->formRow($form->get('id_tech')); ?><br/>
+
+
+            </div>
+            <div class="col-md-6">
+                <label for="medida">Crono:</label>
+                <?= $this->formRow($form->get('crono')); ?><br/>
+
+                <label for="medida">Minutos Acumulados:</label>
+                <?= $this->formRow($form->get('total')); ?><br/>
+
+
+                <label for="medida">Comentarios:</label>
+                <?= $this->formRow($form->get('comments')); ?><br/>
+
+                <?= $this->formRow($form->get('saveBtn')); ?>
+
+                <?= $this->formRow($form->get('finishBtn')); ?>
+            </div>
+
+
+            <?= $this->form()->closeTag(); ?>
+
+        </div>
+</section>

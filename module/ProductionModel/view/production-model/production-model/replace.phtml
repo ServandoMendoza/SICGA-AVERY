@@ -1,0 +1,55 @@
+<?php
+    $this->HeadScript()->appendFile($basePath . '/js/ProductionModel/replace.js', 'text/javascript');
+
+    $title = 'Reemplazar Modelo';
+    $this->headTitle($title);
+?>
+
+<section class="work-area">
+    <div class="container">
+        <?php
+
+        $form = $this->form;
+        $form->setAttribute('action', $this->url('ProductionModel', array('action' => 'replace')));
+        $form->setAttribute('id', 'replaceModelFrm');
+        $form->setAttribute('class', 'form-horizontal');
+        $form->setAttribute('role', 'form');
+
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+        echo $this->formHidden($form->get('id')->setValue($productionModelId));
+        echo $this->formHidden($form->get('start_hour'));
+        echo $this->formHidden($form->get('end_hour'));
+        echo $this->formHidden($form->get('shift_now'));
+        echo $this->formHidden($form->get('product_sku'));
+        echo $this->formHidden($form->get('to_replace_sku')->setValue($orgProductionModel->product_sku));
+
+        //$form->get('id')->setValue($productionModelId)
+
+        ?>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label for="skuprefix">SKU-Prefijo:</label>
+                <?= $this->formRow($form->get('sku_prefix')); ?><br/>
+                <label for="medida">Medida:</label>
+                <?= $this->formRow($form->get('sku_size')); ?>
+
+            </div>
+            <div class="col-md-4">
+                <label for="sku">SKU:</label>
+                <?= $this->formRow($form->get('sku_right')); ?>
+            </div>
+            <div class="col-md-4">
+
+                <?= $this->formSubmit($form->get('guardarBtn')); ?>
+            </div>
+        </div>
+
+
+        <?= $this->form()->closeTag(); ?>
+
+    </div>
+</section>
+

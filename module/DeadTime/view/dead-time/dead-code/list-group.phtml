@@ -1,0 +1,68 @@
+<?php
+$this->HeadScript()->appendFile($basePath . '/css/datatables/jquery.dataTables.css', 'text/css');
+$this->HeadScript()->appendFile($basePath . '/css/datatables/demo.css', 'text/css');
+
+$this->HeadScript()->appendFile($basePath . '/js/Datatables/jquery.dataTables.js', 'text/javascript');
+$this->HeadScript()->appendFile($basePath . '/js/DeadTime/DeadCode/list-group.js', 'text/javascript');
+
+$title = 'Listado de Grupos de Tiempo Muerto';
+$this->headTitle($title);
+?>
+
+<script type="text/javascript">
+    var auxObj = {
+        edit_dcg_url : "<?= $this->url('home')."DeadCode/editGroup/" ?>"
+    };
+</script>
+
+
+<section class="work-area">
+        <h1><?= $this->escapeHtml($title); ?></h1>
+        <a href="<?= $this->url('home')."DeadCode/addGroup" ?>" class="btn btn-info btn-lg btn-add pull-right"> Agregar Nuevo <span class="icon-plus-3"></span>
+        </a>
+        <table id="example" class="display table table-striped table-responsive table-hover" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Creador</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+
+            <tfoot>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Creador By</th>
+                <th>Acciones</th>
+            </tr>
+            </tfoot>
+        </table>
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').dataTable( {
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "jsonListg",
+                "dataType": "jsonp"
+            },
+            "columnDefs": [
+                {
+                    // The `data` parameter refers to the data for the cell (defined by the
+                    // `data` option, which defaults to the column being worked with, in
+                    // this case `data: 0`.
+                    "render": function ( data, type, row ) {
+                        return "<input type='button' name='editar' class='btn btn-warning' onclick=\"javascript:editar('"+data+"')\" value='editar'/>" +
+                        "<input type='button' name='remove' class='btn btn-danger' onclick=\"javascript:removeDcGroup('"+data+"')\" value='borrar'/>"
+                    },
+                    "targets": 3
+                },
+                ]
+        } );
+    } );
+</script>
+

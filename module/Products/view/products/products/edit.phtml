@@ -1,0 +1,43 @@
+<?php
+//$this->HeadScript()->appendFile($basePath . '/js/Scrap/edit.js', 'text/javascript');
+$title = 'Editar Producto';
+$this->headTitle($title);
+
+?>
+
+<section class="work-area">
+
+    <h1><?= $this->escapeHtml($title); ?></h1>
+
+    <?php
+        $form = $this->form;
+
+        $form->setAttribute('action', $this->url(
+            'Products',
+            array(
+                'action' => 'edit',
+                'sku' => $products->sku)
+        ));
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+        echo $this->formHidden($form->get('sku'));
+
+    ?>
+
+    <div class="col-md-6">
+        <label for="name">Nombre:</label>
+        <?= $this->formRow($form->get('name')); ?><br/>
+
+        <label for="description">Descripcion:</label>
+        <?= $this->formRow($form->get('description')); ?><br/>
+
+        <label for="size">Medida:</label>
+        <?= $this->formRow($form->get('size')); ?><br/>
+
+        <?= $this->formRow($form->get('saveBtn')); ?>
+    </div>
+
+    <?= $this->form()->closeTag(); ?>
+
+</section>

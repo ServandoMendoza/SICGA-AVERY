@@ -1,0 +1,40 @@
+<?php
+
+$title = 'Alter Login';
+$this->headTitle($title);
+
+$this->HeadScript()->appendFile($basePath . '/js/Auth/alogin.js', 'text/javascript');
+
+?>
+
+<section class="work-area">
+    <div class="form-quick">
+
+        <?php
+            $form = $this->form;
+            $form->setAttribute('action', $this->url('auth/default', array('controller' => 'index', 'action' => 'alogin')));
+            $form->prepare();
+
+            echo $this->form()->openTag($form);
+        ?>
+
+        <div class="col-md-2">
+            <label for="txtclave">Clave:</label>
+        </div>
+        <div class="col-md-5">
+            <?= $this->formRow($form->get('token')); ?>
+        </div>
+        <div class="col-md-4">
+            <?= $this->formSubmit($form->get('submit')); ?>
+        </div>
+        <label class="lbl-error" for="error" id="lbl-error">
+            <?= $this->messages["error"]; ?><BR/>
+            <?= $this->messages["login_messages"]; ?>
+        </label>
+
+    </div>
+
+    <?= $this->form()->closeTag(); ?>
+</section>
+
+

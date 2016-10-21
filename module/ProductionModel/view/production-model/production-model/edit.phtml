@@ -1,0 +1,98 @@
+<?php //var_dump($productionModel);?>
+
+<script type="text/javascript">
+    var editData = {
+        start_hour : "<?= ($productionModel->start_hour)?>",
+        end_hour: "<?= ($productionModel->end_hour)?>",
+        shift_id: <?= ($productionModel->shift_id)?>,
+        product_sku: "<?= ($productionModel->product_sku)?>",
+        is_admin_usr : <?= ($isAdminUser)? 1 : 0 ?>,
+        is_gerente_usr : <?= ($isGerenteUser)? 1 : 0 ?>,
+        prod_model_id : <?= $productionModel->id ?>,
+        is_replace_parent : <?= ($productionModel->is_replace_parent)? 1 : 0 ?>,
+        program_time : "<?= $productionModel->program_time?>"
+    };
+</script>
+
+<?php
+    $this->HeadScript()->appendFile($basePath . '/js/ProductionModel/edit.js', 'text/javascript');
+
+    $title = 'Editar Modelo';
+    $this->headTitle($title);
+?>
+
+
+<section class="work-area">
+    <div class="container">
+        <?php
+            $form = $this->form;
+            $form->setAttribute('action', $this->url(
+                'ProductionModel',
+                array(
+                    'action' => 'edit',
+                    'id' => $productionModel->id)
+            ));
+
+            $form->prepare();
+
+            echo $this->form()->openTag($form);
+            echo $this->formHidden($form->get('id'));
+            echo $this->formHidden($form->get('start_hour'));
+            echo $this->formHidden($form->get('end_hour'));
+            echo $this->formHidden($form->get('shift_now'));
+            echo $this->formHidden($form->get('product_sku'));
+            echo $this->formHidden($form->get('altered_cycles_sp'));
+            echo $this->formHidden($form->get('is_replace')->setValue($productionModel->is_replace));
+        ?>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label for="skuprefix">SKU-Prefijo:</label>
+                <?= $this->formRow($form->get('sku_prefix')); ?><br><br>
+
+                <label for="turno">Turno:</label>
+                <?= $this->formRow($form->get('shift_id')); ?><br><br>
+
+                <label for="hrProduccion">Hora De Producción:</label>
+                <?= $this->formRow($form->get('horaProduccion')); ?><br><br>
+
+                <label for="hrProduccion">Machine Runtime:</label>
+                <?= $this->formRow($form->get('machine_runtime')); ?>
+            </div>
+            <div class="col-md-4">
+                <label for="sku">SKU:</label>
+                <?= $this->formRow($form->get('sku_right')); ?><br><br>
+
+                <label for="produccionSTD">Producción Estandar:</label>
+                <?= $this->formRow($form->get('std_production')); ?><br><br>
+
+                <label for="minProgramados">Min. Programados:</label>
+                <?= $this->formRow($form->get('program_time')); ?><br><br>
+
+             </div>
+            <div class="col-md-4">
+                <label for="medida">Medida:</label>
+                <?= $this->formRow($form->get('sku_size')); ?><br><br>
+
+                <label for="prodActual">Producción Actual:</label>
+                <?= $this->formRow($form->get('actual_production')); ?><br><br><br>
+
+                <div id="replaceModelContainer">
+                    <label for="prodActual">Reemplazar modelo:</label>
+                    <a id="replaceModelLink" href="<?= $this->url('home')."ProductionModel/replace/".$this->escapeHtml($productionModel->id) ?>" class="btn btn-info btn-lg btn-add">
+                        Reemplazar <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+
+                    <br><br><br>
+                </div>
+
+                <?= $this->formSubmit($form->get('guardarBtn')); ?>
+            </div>
+        </div>
+
+        <?= $this->form()->closeTag(); ?>
+    </div>
+</section>
+
+
+

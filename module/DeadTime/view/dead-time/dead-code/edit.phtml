@@ -1,0 +1,53 @@
+<?php
+$this->HeadScript()->appendFile($basePath . '/js/DeadTime/DeadCode/edit.js', 'text/javascript');
+$title = 'Editar Código Tiempo Muerto';
+$this->headTitle($title);
+?>
+
+<h1><?= $this->escapeHtml($title); ?></h1>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+    'DeadCode',
+    array(
+        'action' => 'edit',
+        'id' => $deadCodeDM->id)
+));
+$form->setAttribute('id', 'frmEditDeadCode');
+$form->setAttribute('class', 'form-horizontal');
+$form->setAttribute('role', 'form');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+?>
+
+<input type="hidden" id="loaded_code" value="<?= $deadCodeDM->code?>"/>
+<input type="hidden" id="loaded_group" value="<?= $deadCodeDM->death_code_group_id?>"/>
+<input type="hidden" id="loaded_machine_id" value="<?= $machine_loaded_id?>"/>
+
+<div class="col-md-6">
+    <label for="agrupacion">Código:</label>
+    <?= $this->formRow($form->get('code')); ?><br/>
+
+    <label for="codigo">Descripción:</label>
+    <?= $this->formRow($form->get('description')); ?><br/>
+
+    <label for="agrupacion">Máquina:</label>
+    <?= $this->formRow($form->get('machine_id')); ?><br/>
+
+
+    <div id="group-container">
+        <label for="codigo">Grupo:</label>
+        <?= $this->formRow($form->get('death_code_group_id')); ?><br/>
+    </div>
+
+    <p id="txt-msg"></p>
+
+    <?= $this->formRow($form->get('saveBtn')); ?>
+</div>
+
+<?= $this->form()->closeTag(); ?>
+
+

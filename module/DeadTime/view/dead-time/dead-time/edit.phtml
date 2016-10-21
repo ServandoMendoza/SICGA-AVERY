@@ -1,0 +1,84 @@
+<?php
+$this->HeadScript()->appendFile($basePath . '/js/DeadTime/edit.js', 'text/javascript');
+$title = 'Tiempo Muerto';
+$this->headTitle($title);
+?>
+
+
+<section class="work-area">
+    <div class="container">
+
+    <h1><?= $this->escapeHtml($title); ?></h1>
+
+<input type="hidden" id="dead_code_selected" value="<?= $this->productionDeadTime->death_code_id?>"/>
+<input type="hidden" id="dead_code_group_selected" value="<?= $this->productionDeadTime->death_code_group_id?>"/>
+
+
+<?php
+    $form = $this->form;
+    $form->setAttribute('action', $this->url(
+        'DeadTime',
+        array(
+            'action' => 'edit',
+            'id' => $this->productionDeadTime->id)
+        ));
+
+    $form->setAttribute('id', 'newDeadTime');
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formHidden($form->get('id'));
+    echo $this->formHidden($form->get('production_model_id'));
+    echo $this->formHidden($form->get('problem'));
+?>
+
+        <div class="col-md-6">
+            <label for="agrupacion">Agrupación:</label>
+            <?= $this->formRow($form->get('dead_code_group')); ?><br/>
+
+            <label for="codigo">Codigo:</label>
+            <?= $this->formRow($form->get('death_code_id')); ?><br/>
+
+            <strong>Descripción del Código:</strong> <br/><span id="code_description"></span><br/><br/>
+
+            <div id="sub-group-container">
+                <label for="subcodigo">Problema:</label>
+                <?= $this->formRow($form->get('death_problem_id')); ?><br/>
+            </div>
+
+            <div id="other-problem-container">
+                <label for="subcodigo">Otro Problema:</label>
+                <?= $this->formRow($form->get('other_problem')); ?><br/>
+            </div>
+
+            <label for="causa">Causa:</label>
+            <?= $this->formRow($form->get('cause')); ?><br/>
+
+        </div>
+        <div class="col-md-6">
+
+            <label for="accion">Acción Correctiva:</label>
+            <?= $this->formRow($form->get('action')); ?><br/>
+
+            <label for="responsabilidad">Responsable:</label>
+            <?= $this->formRow($form->get('responsible')); ?><br/>
+
+            <div id="others-container" style="display:none">
+                <label for="subcodigo">Detalle Otros:</label>
+                <?= $this->formRow($form->get('others_responsible')); ?><br/>
+            </div>
+
+            <label for="cmbEstatus">Estatus Equipo:</label>
+            <?= $this->formRow($form->get('machine_status')); ?><br/>
+
+            <?= $this->formRow($form->get('saveBtn')); ?>
+        </div>
+
+
+
+
+
+<?= $this->form()->closeTag(); ?>
+
+        </div>
+    </section>

@@ -1,0 +1,103 @@
+<script type="text/javascript">
+    var passData = {
+        add_url : "<?= $this->url('home')."DeadTime/add/".$this->escapeHtml($productionModelId) ?>",
+        prod_model_url : "<?= $this->url('home')."ProductionModel" ?>",
+        prod_model_id : "<?= $this->escapeHtml($productionModelId)?>"
+    };
+
+    var is_gerente_usr = <?= ($isGerenteUser)? 1 : 0 ?>;
+
+</script>
+
+<?php
+use DeadTime\Lib\DeadTimeHelper;
+$this->HeadScript()->appendFile($basePath . '/js/DeadTime/list.js', 'text/javascript');
+?>
+
+<section class="work-area">
+    <div class="container">
+
+        <?php if(!$isGerenteUser): ?>
+
+        <a id="addNewDeadTimeBtn" href="<?= $this->url('home')."DeadTime/add/".$this->escapeHtml($productionModelId) ?>" class="btn btn-info btn-lg btn-add">
+            Agregar Nuevo <span class="icon-plus-3"></span>
+        </a>
+
+        <?php endif; ?>
+<?php
+        if($productionDeadTimes->count() > 0){ ?>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Código - Grupo</th>
+                <th>Causa</th>
+                <th>Sección</th>
+                <th>Problema</th>
+                <th>Tiempo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <?php foreach ($productionDeadTimes as $productionDeadTime) :
+
+                $createRequisition = DeadTimeHelper::willCreateRequisition($productionDeadTime->death_code_id, $codesForReq);
+
+                ?>
+                <tr>
+                    <td><?= $this->escapeHtml($productionDeadTime->code) . ' - ' . $this->escapeHtml($productionDeadTime->name);;?></td>
+                    <td><?= $this->escapeHtml($productionDeadTime->cause);?></td>
+
+
+                    <?php
+                    // Aplica para problemas y secciones pre-definidos en base de datos
+                        if((int)$productionDeadTime->death_problem_id > 0)
+                        {
+                    ?>
+                            <td><?= $this->escapeHtml($productionDeadTime->ds_name);?></td>
+                            <td><?= $this->escapeHtml($productionDeadTime->dp_description);?></td>
+
+                    <?php
+                        }
+                        else
+                        {
+                    ?>
+                            <td><?= $this->escapeHtml($productionDeadTime->section);?></td>
+                            <td><?= $this->escapeHtml($productionDeadTime->problem . $productionDeadTime->other_problem);?></td>
+                    <?php
+                        }
+                    ?>
+
+                    <td>
+                        <?=
+                            ($productionDeadTime->dead_time == 0 )?
+                                "N/A" : number_format((float)$productionDeadTime->dead_time, 2, '.', '')." Mins";
+                        ?>
+                    </td>
+                    <td><?= ($productionDeadTime->machine_status) ? '<span class="activo">Activo</span>' : '<span class="inactivo">Inactivo</span>' ?></td>
+                    <td>
+                        <?php if(($isOperadorUser && $createRequisition) || ($productionDeadTime->machine_status && !$isAdminUser)):
+                            echo '&nbsp';
+                        ?>
+
+                        <?php elseif(!$isGerenteUser): ?>
+
+                            <a href="<?= $this->url('home')."DeadTime/edit/".$this->escapeHtml($productionDeadTime->id) ?>" class="btn btn-warning btn-block">
+                                <span class="icon-pencil"></span> EDITAR
+                            </a>
+
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+
+  <?php }
+        else{
+            echo "No hay Tiempos Muertos Capturados";
+        }
+  ?>
+    </div>
+</section>

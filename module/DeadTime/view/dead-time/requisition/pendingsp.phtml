@@ -1,0 +1,70 @@
+<section class="work-area">
+    <div class="container">
+        <h1>Pendientes</h1>
+
+        <a href="<?= $this->url('home')."Requisition/add"?>" class="btn btn-warning btn-lg btn-add pull-right">
+            <span class="icon-arrow-left"></span> Regresar
+        </a><br/>
+
+        <?php foreach($requisitionList as $requisition): ?>
+            <table class="pendientes-tbl">
+                <tr>
+                    <td>Numero de Requisicion</td>
+                    <td><?= $requisition["number"]; ?></td>
+                </tr>
+                <tr>
+                    <td>Fecha </td>
+                    <td><?= $requisition["create_date"]; ?></td>
+                </tr>
+                <tr>
+                    <td>Estado de requisición</td>
+                    <td><?= $requisition["create_date"]; ?></td>
+                </tr>
+                <tr>
+                    <td>Hora</td>
+                    <td><?= $requisition["create_hour"]; ?></td>
+                </tr>
+                <tr>
+                    <td>Area</td>
+                    <td><?= $requisition["area_name"]; ?></td>
+                </tr>
+                <tr>
+                    <td>Máquina</td>
+                    <td><?= $requisition["machine_name"]; ?></td>
+                </tr>
+                <tr>
+                    <td>Problema</td>
+                    <td><?= $requisition["problem"]; ?></td>
+                </tr>
+                <tr>
+                    <td>Técnico</td>
+                    <td><?= $requisition["usr_name"]; ?></td>
+                </tr>
+                <tr>
+                    <td>Condición de la máquina</td>
+                    <td><?= $requisition["machine_status"]; ?></td>
+                </tr>
+                <tr>
+                    <td>Tiempo transcurrido</td>
+                    <td><?= $requisition["acc_time"]." mins"; ?></td>
+                </tr>
+                <tr>
+                    <td>Causa</td>
+                    <td><?= $requisition["cause"]; ?></td>
+                </tr>
+                <tr>
+                    <td>Accion correctiva</td>
+                    <td><?= $requisition["action"]; ?></td>
+                </tr>
+                <tr>
+                    <td>Comentarios</td>
+                    <td><?= $requisition["comments"]; ?></td>
+                </tr>
+            </table>
+            <br/><br/><br/>
+
+        <?php endforeach; ?>
+
+
+    </div>
+</section>

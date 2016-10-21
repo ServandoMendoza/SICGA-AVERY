@@ -1,0 +1,91 @@
+<script type="text/javascript">
+    redirect_url  = "<?= $this->url('home')."Requisition/techs/" ?>";
+    shift_id = <?= $idShift  ?>;
+</script>
+
+<?php
+$this->HeadScript()->appendFile($basePath . '/js/DeadTime/Requisition/techs.js', 'text/javascript');
+$title = 'Add Requisition';
+$this->headTitle($title);
+
+function status_lbl($text)
+{
+    switch($text)
+    {
+        case 'Ocupado': $css_class = 'red-bg'; break;
+        case 'Disponible': $css_class = 'green-bg'; break;
+    }
+    return $css_class;
+}
+
+function woActivity_lbl($text)
+{
+    switch($text)
+    {
+        case 'Libre': $css_class = 'green-bg'; break;
+        case 'Orden Abierta': $css_class = 'red-bg'; break;
+        case 'Preventivo':
+        case 'ESP':
+        case 'Mejora': $css_class = 'light-yellow-bg'; break;
+        default : $css_class = 'green-bg';
+    }
+    return $css_class;
+}
+
+?>
+
+<section class="work-area">
+    <div class="container">
+        <h1>Técnicos</h1>
+
+        <strong>Seleccione Turno :</strong>
+        <select name="shiftSel" id="shiftSel" class="form-control" style="width: 30%">
+            <option value="">Seleccione</option>
+            <option value="1">Matutino</option>
+            <option value="2">Vespertino</option>
+            <option value="3">Nocturno</option>
+        </select><br/>
+
+        <table id="promotion-model-tbl" class="table tabla">
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Técnico</th>
+                    <th>Requisición</th>
+                    <th>Máquina</th>
+                    <th>Problema</th>
+                    <th>Estado</th>
+                    <th>Otras Actividades</th>
+                    <th>Wo</th>
+                    <th>Acciones</td>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+                foreach($techList as $tech):
+            ?>
+                <tr>
+                    <td>
+                        <?php if($tech['photo']): ?>
+                            <img src="<?= str_replace("./public","",$tech['photo']) ?>" width="100">
+                        <?php else: ?>
+                            <img src="/img/default-avatar.jpg">
+                        <?php endif; ?>
+                    </td>
+                    <td><?= $tech['tech_name'] ?></td>
+                    <td class="light-purp-bg"><?= $tech['requisition_number'] ?></td>
+                    <td><?= $tech['machine_name'] ?></td>
+                    <td></td>
+                    <td class="<?= status_lbl($tech['status']) ?>"><?= $tech['status'] ?></td>
+                    <td class="<?= woActivity_lbl($tech['wo_activity']) ?>"><?= $tech['wo_activity'] ?></td>
+                    <td class="light-purp-bg"><?= $tech['wo_number'] ?></td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+            <?php
+                endforeach;
+            ?>
+        </table>
+    </div>
+</section>

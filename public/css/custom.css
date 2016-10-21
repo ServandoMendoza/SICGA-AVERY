@@ -1,0 +1,154 @@
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  padding: 30px;
+  margin: 0px;
+  font-family: 'Ubuntu', sans-serif;
+  text-transform: uppercase;
+  overflow:auto;
+}
+
+.container-fluid{
+  width: 100%;
+  padding: 0;
+}
+
+.row-fluid {height: 100%;}
+
+
+.btn-blue{
+  padding: 10px;
+}
+
+.btn-blue .glyphicon{
+  padding: 10px;
+  font-size: 3em;
+  color: #fff;
+}
+
+.btn-blue p{
+  font-size: 24px;
+  font-weight: normal;
+  letter-spacing: 2px;
+}
+
+
+h1,h2,h3,h4,h5,h6{
+}
+
+h1{
+  font-size: 40px;
+}
+
+h2{
+  font-size: 32px;
+}
+
+h3{
+  font-size: 24px;
+}
+
+h4{
+  font-size: 16px;
+}
+
+p{
+  color: #FFF;
+  text-align: center;
+}
+
+
+table{
+  font-size: 24px;
+}
+
+table thead tr th{
+  text-align: center;
+}
+
+
+
+hr{    
+    height: 4px;
+    background: #ddd;
+    border:0;
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;
+}
+
+
+.main-menu{
+  border-right: solid 4px;
+  color: #ddd;
+  padding-right: 50px;
+}
+
+.content-block{
+  padding-left: 50px;
+}
+
+.form-horizontal{
+
+}
+
+.form-group .input-lg{
+  font-size: 24px;
+  line-height: 24px;
+  height: auto;
+}
+
+
+.pager .btn{
+  padding: 20px;
+}
+
+
+
+.tabla thead{
+    background:#123382;
+    color:#fff;
+}
+
+.tabla tbody tr td{
+    vertical-align: middle;
+}
+
+.form-group label{
+    font-size:24px;
+    color:#333;
+    margin-bottom:10px;
+}
+
+.glyphicon-time,
+.glyphicon-trash,
+.glyphicon-pencil
+{
+    font-size: 2em;
+    padding: 5px;
+}
+
+.progress{
+    height: 50px;
+    margin-top: 15px;
+}
+
+.progress-bar{
+    vertical-align: center;
+    font-size: 20px;
+    padding-top: 15px;
+}
+
+.p-h-cbx
+{
+    width:120px;
+    margin: 0px;
+}

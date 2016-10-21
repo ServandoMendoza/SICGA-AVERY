@@ -1,0 +1,73 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+body
+{
+    background:#0d3884;
+    font-family: 'Open Sans', sans-serif;
+    font-size:16px;
+}
+
+.form
+{
+    background: #fff;
+    border:2px solid #ea060f;
+    border-radius: 15px;
+    box-shadow: 0px 0px 35px #272727;
+    -webkit-box-shadow: 0px 0px 35px #272727;
+    -moz-box-shadow: 0px 0px 35px #272727;
+    -ms-box-shadow: 0px 0px 35px #272727;
+    -o-box-shadow: 0px 0px 35px #272727;
+    font-size: 1.3em;
+    margin:120px auto;
+    padding: 20px;
+    width: 70%;
+}
+
+.form figure
+{
+    text-align:center;
+    margin:-20px;
+}
+.usuario,
+.pass
+{
+    font-size:1em;
+    height: 40px;
+    padding-left: 40px;
+}
+.usuario
+{
+    background: url(../img/user.jpg) no-repeat;
+    background-position: 10px 55%;
+}
+
+.pass
+{
+    background: url(../img/pass.jpg) no-repeat;
+    background-position: 10px 55%;
+}
+.form button
+{
+    font-size:1.1em;
+}
+
+.form input,
+.form label
+{
+    margin:1px !important;
+
+}
+
+.form button:focus,
+.form button:active
+{
+    outline: 0px !important;
+}
+
+.lbl-error
+{
+    color:red;
+    font-weight: bold;
+    margin: 13px;
+    text-align: center;
+}

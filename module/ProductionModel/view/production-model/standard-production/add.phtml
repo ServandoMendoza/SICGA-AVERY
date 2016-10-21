@@ -1,0 +1,53 @@
+<?php
+$this->HeadScript()->appendFile($basePath . '/js/ProductionModel/StandardProduction/add.js', 'text/javascript');
+$title = 'Agregar Producción Estándar';
+$this->headTitle($title);
+?>
+
+<section class="work-area">
+    <h1><?= $this->escapeHtml($title); ?></h1>
+
+    <?php
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('StandardProduction', array('action' => 'add')));
+    $form->setAttribute('id', 'frmAddStandardProduction');
+    $form->setAttribute('class', 'form-horizontal');
+    $form->setAttribute('role', 'form');
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formHidden($form->get('id'));
+    ?>
+
+    <div class="col-md-6">
+        <label for="agrupacion">Máquina:</label>
+        <?= $this->formRow($form->get('machine_id')); ?><br/>
+
+        <label for="codigo">Tamaño:</label>
+        <?= $this->formRow($form->get('size')); ?><br/>
+
+        <label for="codigo">Ciclos x minuto:</label>
+        <?= $this->formRow($form->get('cycles_per_minute')); ?><br/>
+
+        <label for="codigo">Productos x hora</label>
+        <?= $this->formRow($form->get('products_per_hour')); ?><br/>
+
+    </div>
+    <div class="col-md-6">
+        <label for="codigo">Runtime</label>
+        <?= $this->formRow($form->get('machine_runtime')); ?><br/>
+
+        <label for="agrupacion">Cantidad de Personal:</label>
+        <?= $this->formRow($form->get('crew_size')); ?><br/>
+
+        <label for="codigo">Tiempo de ejecución:</label>
+        <?= $this->formRow($form->get('labor_runtime')); ?><br/>
+
+        <label for="codigo">Personal Indirecto:</label>
+        <?= $this->formRow($form->get('indirect_crew')); ?><br/>
+
+        <?= $this->formSubmit($form->get('saveBtn')); ?>
+    </div>
+
+    <?= $this->form()->closeTag(); ?>
+</section>

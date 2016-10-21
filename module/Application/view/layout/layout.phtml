@@ -1,0 +1,101 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle('AVERY '. $this->translate(''))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+    <?php echo $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <!-- The Styles -->
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/css/main.css')
+        ->prependStylesheet($this->basePath() . '/css/iconos/style.css')
+        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.css')
+        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+        ->prependStylesheet($this->basePath() . '/css/jquery-ui.css')
+        ->prependStylesheet($this->basePath() . '/css/DataTables-1.10.2/media/css/jquery.dataTables.css') ?>
+
+    <script type="text/javascript">
+        var now = new Date(<?php echo time() * 1000 ?>);
+    </script>
+
+    <!-- Scripts -->
+    <?php echo $this->headScript()
+        ->prependFile($this->basePath() . '/js/index.js')
+        ->prependFile($this->basePath() . '/js/jquerymigrate.js')
+        ->prependFile($this->basePath() . '/js/functions.js')
+        ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+        ->prependFile($this->basePath() . '/js/jquery-ui.js')
+        ->prependFile($this->basePath() . '/js/jquery.min.js')
+        ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+    ; ?>
+
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="<?= $this->url('home') ?>">
+            <img  src="<?= $this->basePath('img/logo_blanco.png') ?>" alt="logo avery">
+        </a>
+    </div>
+    <div class="menu-bar">
+        <div class="quick-menu">
+            <ul>
+                <li id="<?= $this->url('home') ?>">
+                    <span class="icon-home-2"></span> STATUS HR X HR
+                </li>
+
+                <li id="<?= $this->url('home')."ProductionModel/add" ?>">
+                    <span class="icon-list-3"></span> MODELOS
+                </li>
+
+                <li id="<?= $this->url('home')."Requisition/pendings" ?>">
+                    <span class="icon-list-3"></span> Pendientes
+                </li>
+
+                <li id="<?= $this->url('home')."Application" ?>">
+                    <span class="icon-list-3"></span> Admin
+                </li>
+
+                <li id="<?= $this->url('auth/default', array('controller' => 'index', 'action' => 'logout'));?>">
+                    <span class="icon-exit"></span> Salir
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<div class="bar-info-system">
+    <div class="info-system">
+        <h3><span id="pageTitle">STATUS HR X HR</span> - <span id="machineNameTitle"><?= $this->layout()->someVar;?></span> </h3>
+        <h4><span id="dayNameTime"></span> <span id="dateFormatTime"></span> <span id="localTime"></span></h4>
+    </div>
+    <div class="info-user">
+        <h4><span class="bv">Bienvenido: </span><span class="icon-user-3"></span>
+            <?php
+                $user = $this->identity();
+
+                if ($user) {
+                    echo ucfirst($this->escapeHtml($user->usr_name));
+                }
+            ?>
+
+        </h4>
+
+        <?php if($user && ($user->usrl_id == 4 || $user->usrl_id == 5)): ?>
+        <a class="login-link" href="http://averyrep" target="_blank">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> PDCA REPORT TOOL
+        </a>
+        <?php endif; ?>
+
+    </div>
+</div>
+    <?php echo $this->content; ?>
+</body>
+</html>
